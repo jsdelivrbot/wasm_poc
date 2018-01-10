@@ -23,7 +23,9 @@
   },
   "homepage": "https://github.com/pballok/lottery#readme",
   "dependencies": {
-    "babel-preset-stage-1": "^6.24.1"
+    "babel-preset-stage-1": "^6.24.1",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
