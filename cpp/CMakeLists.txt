@@ -33,9 +33,16 @@ add_custom_target(
     COMMENT "running astyle"
 )
 
-set(EMSCRIPTEN_FLAGS
+set(EMSCRIPTEN_COMPILE_FLAGS
+    -std=c++11
+    -O3
+    --closure 1
+)
+
+set(EMSCRIPTEN_LINK_FLAGS
     -O3
 )
+
 set(EMSCRIPTEN_JS_NAME wasm_poc.js)
 
 set(EMSCRIPTEN_SRC
@@ -49,7 +56,7 @@ foreach(IN_FILE_NAME ${EMSCRIPTEN_SRC})
     add_custom_command(
         OUTPUT ${OUT_FILE}
         DEPENDS ${IN_FILE}
-        COMMAND em++ ${EMSCRIPTEN_FLAGS} ${IN_FILE} -o ${OUT_FILE}
+        COMMAND em++ ${EMSCRIPTEN_COMPILE_FLAGS} -o ${OUT_FILE} ${IN_FILE}
         COMMENT "Running emscripten for ${IN_FILE_NAME}"
     )
     set(EMSCRIPTEN_BC ${OUT_FILE} ${EMSCRIPTEN_BC})
@@ -58,7 +65,7 @@ endforeach(IN_FILE_NAME)
 add_custom_target(
     emscripten ALL
     DEPENDS ${EMSCRIPTEN_BC}
-    COMMAND em++ ${EMSCRIPTEN_FLAGS} ${EMSCRIPTEN_BC} -o "${CMAKE_CURRENT_BINARY_DIR}/${EMSCRIPTEN_JS_NAME}"
+    COMMAND em++ ${EMSCRIPTEN_LINK_FLAGS} ${EMSCRIPTEN_BC} -o "${CMAKE_CURRENT_BINARY_DIR}/${EMSCRIPTEN_JS_NAME}"
     COMMENT "Linking ${EMSCRIPTEN_JS_NAME}"
 )
 

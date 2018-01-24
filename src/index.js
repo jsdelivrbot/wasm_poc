@@ -508,12 +508,18 @@ class App extends React.Component {
       [71, 39, 86, 23, 57]
     );
 
-    this.state = { ticketCount: this.tickets.length };
+    this.state = {
+      ticketCount: this.tickets.length,
+      theValue: Module._simple()
+    };
   }
 
   render() {
     return (
-      <div>Number of Lottery tickets: {this.state.ticketCount}</div>
+      <div>
+        <div>Number of Lottery tickets: {this.state.ticketCount}</div>
+        <div>The value: {this.state.theValue}</div>
+      </div>
     );
   }
 }
